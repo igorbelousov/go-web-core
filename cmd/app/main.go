@@ -12,6 +12,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/igorbelousov/go-web-core/cmd/app/handlers"
+
 	"github.com/ardanlabs/conf"
 	"github.com/pkg/errors"
 )
@@ -22,7 +24,7 @@ func main() {
 	log := log.New(os.Stdout, "APP: ", log.LstdFlags|log.Lmicroseconds|log.Lshortfile)
 
 	if err := run(log); err != nil {
-		log.Println("App error: ", err)
+		log.Println("APP error: ", err)
 		os.Exit(1)
 	}
 
@@ -41,7 +43,7 @@ func run(log *log.Logger) error {
 	}
 
 	cfg.Version.SVN = build
-	cfg.Version.Desc = "copyright information here"
+	cfg.Version.Desc = "Core for writing web services"
 
 	if err := conf.Parse(os.Args[1:], "APP", &cfg); err != nil {
 		switch err {
@@ -63,9 +65,6 @@ func run(log *log.Logger) error {
 		return errors.Wrap(err, "parsing config")
 	}
 
-	// =========================================================================
-	// App Starting
-
 	// Print the build version for our logs. Also expose it under /debug/vars.
 	expvar.NewString("build").Set(build)
 	log.Printf("main : Started : Application initializing : version %q", build)
@@ -77,14 +76,8 @@ func run(log *log.Logger) error {
 	}
 	log.Printf("main: Config :\n%v\n", out)
 
-	// =========================================================================
-	// Start Debug Service
-	//
 	// /debug/pprof - Added to the default mux by importing the net/http/pprof package.
 	// /debug/vars - Added to the default mux by importing the expvar package.
-	//
-	// Not concerned with shutting this down when the application is shutdown.
-
 	log.Println("main: Initializing debugging support")
 
 	go func() {
@@ -105,8 +98,8 @@ func run(log *log.Logger) error {
 	signal.Notify(shutdown, os.Interrupt, syscall.SIGTERM)
 
 	api := http.Server{
-		Addr: cfg.Web.APIHost,
-		// Handler:      handlers.API(build, shutdown, log, auth, db),
+		Addr:         cfg.Web.APIHost,
+		Handler:      handlers.API(build, shutdown, log),
 		ReadTimeout:  cfg.Web.ReadTimeout,
 		WriteTimeout: cfg.Web.WriteTimeout,
 	}
@@ -120,9 +113,6 @@ func run(log *log.Logger) error {
 		log.Printf("main: API listening on %s", api.Addr)
 		serverErrors <- api.ListenAndServe()
 	}()
-
-	// =========================================================================
-	// Shutdown
 
 	// Blocking main and waiting for shutdown.
 	select {
