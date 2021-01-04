@@ -11,7 +11,7 @@ import (
 //API function for define routers
 func API(build string, shutdown chan os.Signal, log *log.Logger) *web.App {
 
-	app := web.NewApp()
+	app := web.NewApp(shutdown)
 
 	check := check{
 		log: log,
