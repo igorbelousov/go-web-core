@@ -17,7 +17,7 @@ type check struct {
 func (c check) readiness(ctx context.Context, w http.ResponseWriter, r *http.Request) error {
 
 	if n := rand.Intn(100); n%2 == 0 {
-		web.RespondError(ctx, w, err)
+		// web.RespondError(ctx, w, err)
 		return errors.New("INt Error")
 	}
 

@@ -6,12 +6,13 @@ import (
 	"os"
 
 	"github.com/igorbelousov/go-web-core/foundation/web"
+	"github.com/igorbelousov/go-web-core/internal/mid"
 )
 
 //API function for define routers
 func API(build string, shutdown chan os.Signal, log *log.Logger) *web.App {
 
-	app := web.NewApp(shutdown)
+	app := web.NewApp(shutdown, mid.Logger(log))
 
 	check := check{
 		log: log,
