@@ -18,7 +18,7 @@ func (c check) readiness(ctx context.Context, w http.ResponseWriter, r *http.Req
 
 	if n := rand.Intn(100); n%2 == 0 {
 		// web.RespondError(ctx, w, err)
-		return errors.New("INt Error")
+		return web.NewRequestError(errors.New("trusted error"), http.StatusBadRequest)
 	}
 
 	status := struct {
