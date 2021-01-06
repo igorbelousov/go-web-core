@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	github.com/ardanlabs/conf v1.3.3
+	github.com/ardanlabs/service v0.0.0-20201209191658-5a7b9ca23045
 	github.com/dimfeld/httptreemux/v5 v5.2.2
 	github.com/go-playground/locales v0.13.0
 	github.com/go-playground/universal-translator v0.17.0
