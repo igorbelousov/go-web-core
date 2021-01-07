@@ -5,3 +5,7 @@ export PROJECT = Go-Web-Core
 
 run:
 	go run ./cmd/app/main.go
+
+
+runadmin:
+	go run ./cmd/admin/main.go
