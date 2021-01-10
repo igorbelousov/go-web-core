@@ -3,7 +3,7 @@ ENV CGO_ENABLED 0
 ARG VCS_REF
 
 
-RUN -mkdir -p /core
+RUN mkdir -p /core
 
 WORKDIR /core
 COPY . .
@@ -12,20 +12,19 @@ WORKDIR /core/cmd/app
 RUN go build -ldflags "-X main.build=${VCS_REF}"
 
 
-
 FROM alpine:3.12
 ARG BUILD_DATE
 ARG VCS_REF
-COPY --from=build_go-web-core /go-web-core/private.pem /core/private.pem
+COPY --from=build_go-web-core /core/private.pem /core/private.pem
 # COPY --from=build_go-web-core /go-web-core/private.pem /core/private.pem
-COPY --from=build_go-web-core /go-web-core/cmd/app/app /core/app
+COPY --from=build_go-web-core /core/cmd/app/app /core/app
 WORKDIR /core
 CMD ["./app"]
 
 
 LABEL org.opencontainers.image.created="${BUILD_DATE}" \
   org.opencontainers.image.created="${BUILD_DATE}" \
-  org.opencontainers.image.title="Web-core" \
+  org.opencontainers.image.title="Web-Core" \
   org.opencontainers.image.authors="Belousov Igor" \
   org.opencontainers.image.source="github.com/igorbelousov/go-web-core" \
   org.opencontainers.image.revision="${VCS_REF}" \
