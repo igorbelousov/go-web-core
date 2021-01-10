@@ -1,4 +1,4 @@
-FROM golang:1.15.2 AS build_go-web-core
+FROM golang:1.15.6 AS build_go-web-core
 ENV CGO_ENABLED 0
 ARG VCS_REF
 
@@ -12,7 +12,7 @@ WORKDIR /core/cmd/app
 RUN go build -ldflags "-X main.build=${VCS_REF}"
 
 
-FROM alpine:3.12
+FROM alpine:3.12.3
 ARG BUILD_DATE
 ARG VCS_REF
 COPY --from=build_go-web-core /core/private.pem /core/private.pem
@@ -23,12 +23,11 @@ CMD ["./app"]
 
 
 LABEL org.opencontainers.image.created="${BUILD_DATE}" \
-  org.opencontainers.image.created="${BUILD_DATE}" \
   org.opencontainers.image.title="Web-Core" \
   org.opencontainers.image.authors="Belousov Igor" \
   org.opencontainers.image.source="github.com/igorbelousov/go-web-core" \
   org.opencontainers.image.revision="${VCS_REF}" \
-  org.opencontainers.image.vwndor="Belousov Igor"
+  org.opencontainers.image.vendor="Belousov Igor"
 
 
 
