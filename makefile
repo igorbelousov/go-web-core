@@ -14,17 +14,17 @@ core:
 # ==============================================================================
 # Running from within k8s/dev
 kind-up:
-	/home/igor/kind create cluster --image kindest/node:v1.19.4 --name starter-cluster --config zarf/k8s/dev/kind-config.yaml
+	kind create cluster --image kindest/node:v1.19.4 --name starter-cluster --config zarf/k8s/dev/kind-config.yaml
 
 
 kind-down:
-	/home/igor/kind delete cluster --name starter-cluster
+	kind delete cluster --name starter-cluster
 
 kind-load:
-	/home/igor/kind load docker-image go-web-core-amd64:1.0 --name starter-cluster
+	kind load docker-image go-web-core-amd64:1.0 --name starter-cluster
 
 kind-services:
-	/home/igor/kustomize build zarf/k8s/dev | kubectl apply -f -
+	kustomize build zarf/k8s/dev | kubectl apply -f -
 
 
 kind-status:
@@ -36,7 +36,7 @@ kind-status-full:
 	kubectl describe pod -lapp=go-web-core
 
 kind-update: core
-	/home/igor/kind load docker-image go-web-core-amd64:1.0 --name starter-cluster
+	kind load docker-image go-web-core-amd64:1.0 --name starter-cluster
 	kubectl delete pods -lapp=go-web-core
 
 
