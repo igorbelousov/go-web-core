@@ -48,5 +48,5 @@ run:
 	go run ./cmd/app/main.go
 
 
-runadmin:
+runa:
 	go run ./cmd/admin/main.go
