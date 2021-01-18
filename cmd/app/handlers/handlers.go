@@ -27,7 +27,6 @@ func API(build string, shutdown chan os.Signal, log *log.Logger, a *auth.Auth, d
 
 	ug := userGroup{
 		user: user.New(log, db),
-		auth: a,
 	}
 	app.Handle(http.MethodGet, "/v1/users/:page/:rows", ug.query, mid.Authenticate(a), mid.Authorize(auth.RoleAdmin))
 	app.Handle(http.MethodGet, "/v1/users/token/:kid", ug.token)

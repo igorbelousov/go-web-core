@@ -39,7 +39,7 @@ func run(log *log.Logger) error {
 	var cfg struct {
 		conf.Version
 		Web struct {
-			APIHost         string        `conf:"default:0.0.0.0:8000"`
+			APIHost         string        `conf:"default:0.0.0.0:3000"`
 			DebugHost       string        `conf:"default:0.0.0.0:4000"`
 			ReadTimeout     time.Duration `conf:"default:5s"`
 			WriteTimeout    time.Duration `conf:"default:5s"`
