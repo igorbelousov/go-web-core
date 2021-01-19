@@ -27,7 +27,7 @@ spec:
                   key: db_password
           ports:
             - name: postgres
-              containerPort: 5433
+              containerPort: 5432
           livenessProbe:
             exec:
               command:
@@ -58,7 +58,7 @@ metadata:
 spec:
   ports:
     - name: postgres
-      port: 5433
+      port: 5432
       targetPort: postgres
   selector:
     name: postgres
