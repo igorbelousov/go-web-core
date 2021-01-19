@@ -14,7 +14,7 @@ import (
 
 type userGroup struct {
 	user user.User
-	auth auth.Auth
+	auth *auth.Auth
 }
 
 func (ug userGroup) query(ctx context.Context, w http.ResponseWriter, r *http.Request) error {
