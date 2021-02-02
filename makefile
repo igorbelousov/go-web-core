@@ -65,3 +65,7 @@ run:
 
 runa:
 	go run ./cmd/admin/main.go
+
+
+lint:
+	go test -v ./...
