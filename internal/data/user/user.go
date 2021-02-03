@@ -291,7 +291,7 @@ func (u User) Authenticate(ctx context.Context, traceID string, now time.Time, e
 		StandardClaims: jwt.StandardClaims{
 			Issuer:    "service project",
 			Subject:   usr.ID,
-			Audience:  "students",
+			Audience:  "app",
 			ExpiresAt: now.Add(time.Hour).Unix(),
 			IssuedAt:  now.Unix(),
 		},
