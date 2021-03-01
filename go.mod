@@ -5,7 +5,6 @@ go 1.15
 require (
 	github.com/DATA-DOG/go-sqlmock v1.5.0 // indirect
 	github.com/ardanlabs/conf v1.3.3
-	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/dimfeld/httptreemux/v5 v5.2.2
 	github.com/dimiro1/darwin v0.0.0-20191008194338-370f81775d3b
@@ -14,6 +13,7 @@ require (
 	github.com/google/go-cmp v0.5.4
 	github.com/google/uuid v1.2.0
 	github.com/jmoiron/sqlx v1.3.1
+	github.com/json-iterator/go v1.1.10
 	github.com/kr/text v0.2.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/lib/pq v1.9.0
